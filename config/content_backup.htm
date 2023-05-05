@@ -18,7 +18,12 @@ serve(flaskapp.app, listen='127.0.0.1:9003', threads=8)</pre>
 <p style="padding-left: 30px;">利用 chmod u+x acp 讓 acp 檔案能讓使用執行</p>
 <p style="padding-left: 30px;">利用 hupper -m server.py 嘗試啟動, 是否 8003 port 已經可以擷取到動態網站, 若是, 則儘快變更管理者密碼</p>
 <p>若採 SSH 協定執行 git clone 與 git push 者,  則需以 ssh-keygen 建立 .ssh/id_rsa private key, 以及  id_rsa.pub public key,  然後以 sftp 將 id_rsa.pub 取到近端後送到 Github 帳號下進行登記 (鎖頭登記).</p>
-<p>接著因為 cad2_cycu 僅支援 IPv6, 因此必須在 .ssh 下設定 config 檔案如下, 此舉等同 Windows 環境下設定 SSH 對應的  Github session:</p>
+<p>接著因為 cad2_cycu 僅支援 IPv6, 因此必須在 .ssh 下設定 config 檔案如下, 此舉等同 Windows 環境下設定 SSH 對應的  Github s</p>
+<pre class="brush:js;auto-links:false;toolbar:false" contenteditable="false">Host github.com
+User git
+Hostname github.com
+ProxyCommand /usr/bin/ncat --proxy p4.cycu.org:3128 --proxy-type http %h %p</pre>
+<p><br/>ession:</p>
 <p></p>
 <p></p>
 <p style="padding-left: 30px;"></p><h1>Brython</h1>
