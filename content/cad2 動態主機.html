@@ -2,6 +2,7 @@
         <head>
         <title>workstation</title>
         <meta charset="utf-8">
+<meta property="head" content="H1">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,700,900" rel="stylesheet">
         <link rel="stylesheet" href="./../cmsimde/static/chimper/fonts/icomoon/style.css">
@@ -140,10 +141,32 @@ img.add_border {
           </div>
           
         </header>
-    <div id="tipue_search_content"> <a href='cad2 動態主機.html'>Next</a> >> cad2 動態主機<br /><h1>About</h1>
-<p>repo: <a href="https://github.com/mdecourse-org/workstation-scrum-1">https://github.com/mdecourse-org/workstation-scrum-1</a></p>
-<p>site: <a href="https://mdecourse-org.github.io/workstation-scrum-1">https://mdecourse-org.github.io/workstation-scrum-1</a></p>
-<br /> <a href='cad2 動態主機.html'>Next</a> >> cad2 動態主機</div>
+    <div id="tipue_search_content">About << <a href='About.html'>Previous</a> <a href='Brython.html'>Next</a> >> Brython<br /><h1>cad2 動態主機</h1>
+<p>每一個網站分配兩個 ports 例如: 9003 為內部使用, 8003 為外部使用.</p>
+<p>管理者處理項目:</p>
+<p style="padding-left: 30px;">針對 9003 與 8003 ports 開放使用必須執行:</p>
+<p style="padding-left: 30px;">將 ports 納入 stunnel.conf 中的設定後, 以 sudo /etc/init.d/stunnel4 restart</p>
+<p style="padding-left: 30px;">開放 ufw 讓防火牆通過 8003: sudo ufw allow 8003</p>
+<p>接受使用 9003 當內部 port, 8003 當外部 port 的用戶:</p>
+<p style="padding-left: 30px;">ssh 遠端登入 cad2_cycu 主機</p>
+<p style="padding-left: 30px;">以 SSH 協定 或 https token 格式 git clone 將要使用 9003 與 8003 ports 的倉儲取到帳號對應的目錄下</p>
+<p style="padding-left: 30px;">以 vi server.py 編輯檔案, 設定所分配到的 9003, 檔案內容如下:</p>
+<pre class="brush:py;auto-links:false;toolbar:false" contenteditable="false">from waitress import serve
+from cmsimde import flaskapp
+# 宣告要使用內部分配到的 9003 port 啟用動態網站
+serve(flaskapp.app, listen='127.0.0.1:9003', threads=8)</pre>
+<p style="padding-left: 30px;">利用 chmod u+x acp 讓 acp 檔案能讓使用執行</p>
+<p style="padding-left: 30px;">利用 hupper -m server.py 嘗試啟動, 是否 8003 port 已經可以擷取到動態網站, 若是, 則儘快變更管理者密碼</p>
+<p>若採 SSH 協定執行 git clone 與 git push 者,  則需以 ssh-keygen 建立 .ssh/id_rsa private key, 以及  id_rsa.pub public key,  然後以 sftp 將 id_rsa.pub 取到近端後送到 Github 帳號下進行登記 (鎖頭登記).</p>
+<p>接著因為 cad2_cycu 僅支援 IPv6, 因此必須在 .ssh 下設定 config 檔案如下, 此舉等同 Windows 環境下設定 SSH 對應的  Github s</p>
+<pre class="brush:js;auto-links:false;toolbar:false" contenteditable="false">Host github.com
+User git
+Hostname github.com
+ProxyCommand /usr/bin/ncat --proxy p4.cycu.org:3128 --proxy-type http %h %p</pre>
+<p><br/>ession:</p>
+<p></p>
+<p></p>
+<p style="padding-left: 30px;"></p><br />About << <a href='About.html'>Previous</a> <a href='Brython.html'>Next</a> >> Brython</div>
         
     <!-- footer -->
       <div class="container">
